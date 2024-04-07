@@ -78,7 +78,7 @@ const CardList = () => {
                   {e.body}
                 </Typography>
                 <Typography
-                  sx={{ textAlign: 'right', fontStyle: 'oblique' }}
+                  sx={{ fontStyle: 'oblique' }}
                   variant='caption'
                   gutterBottom
                 >
