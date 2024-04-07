@@ -16,6 +16,7 @@ const CardList = () => {
   const [cardListData, setCardListData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [commentList, setCommentList] = useState([]);
+  const [currentCommentIndex, setCurrentCommentIndex] = useState(0);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
@@ -39,42 +40,56 @@ const CardList = () => {
   };
 
   return (
-    <div>
+    <>
       {cardListData.map((card) => {
         return (
-          <Box sx={{ minWidth: 275 }} key={card.id}>
+          <Box sx={{ maxWidth: 500, mb: 2 }} key={card.id}>
             <Card
-              userid={card.userId}
+              userId={card.userId}
               title={card.title}
               body={card.body}
               onClick={handleOpen}
               variant='outlined'
             >
-              <Typography variant='h3' component='div'>
+              <Typography variant='h5' component='div'>
                 {card.title}
               </Typography>
-              <body>{card.body}</body>
-              <footer>{card.userid}</footer>
+              <Typography variant='body1' component='div'>
+                {card.body}
+              </Typography>
+              <Typography variant='caption'>{card.userId}</Typography>
             </Card>
           </Box>
         );
       })}
       <Modal open={modalOpen} onClose={handleClose}>
         <Box sx={style}>
-          <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-            {commentList.map((e) => {
-              return (
-                <ul key={e.id}>
-                  <li>{e.body}</li>
-                  <li>{e.name}</li>
-                  <li>{e.email}</li>
-                </ul>
-              );
-            })}
-          </Typography>
+          {commentList.map((e) => {
+            return (
+              <div key={e.id}>
+                <Typography
+                  sx={{ fontWeight: 'bold' }}
+                  variant='h6'
+                  gutterBottom
+                >
+                  {e.name}
+                </Typography>
+                <Typography variant='body1' gutterBottom>
+                  {e.body}
+                </Typography>
+                <Typography
+                  sx={{ textAlign: 'right', fontStyle: 'oblique' }}
+                  variant='caption'
+                  gutterBottom
+                >
+                  {e.email}
+                </Typography>
+              </div>
+            );
+          })}
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
 
